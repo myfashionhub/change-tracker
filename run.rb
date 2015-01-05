@@ -1,4 +1,7 @@
+require 'rubygems'
+require 'bundler/setup'
 require 'httparty'
+require 'git'
 
 class ChangeTracker
   def pages 
@@ -11,5 +14,5 @@ class ChangeTracker
   end
 end
 
-change_tracker = new ChangeTracker
+change_tracker = ChangeTracker.new
 change_tracker.find_changes
