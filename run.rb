@@ -22,7 +22,7 @@ class ChangeTracker
     draft = self.draft 
     message = "Changes detected #{DateTime.now}"
     
-    system "cd /home/nessa/waywire-bot/makeyourmovetv"
+    cd = "cd /home/nessa/waywire-bot/makeyourmovetv"
     File.open("#{draft}", 'w') do |f|
       f.write(content)
       f.close
@@ -38,13 +38,13 @@ class ChangeTracker
       f.close
     end
 
-    diff = `git diff #{file}`
+    diff = `#{cd} && git diff #{file}`
     unless diff.empty?
-      add = system "git add #{file}"
+      add = system "#{cd} && git add #{file}"
       if add 
-        commit = system "git commit -m '#{message}'"
+        commit = system "#{cd} git commit -m '#{message}'"
         if commit 
-          system "git push --quiet origin master"
+          system "#{cd} git push --quiet origin master"
         end 
       end    
     end
