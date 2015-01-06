@@ -1,4 +1,6 @@
-#!/usr/bin/env ruby
+#!/home/nessa/.rvm/rubies/ruby-2.1.5/bin/ruby
+
+# /usr/bin/env ruby
 
 require 'bundler/setup'
 require 'httparty'
@@ -41,7 +43,7 @@ class ChangeTracker
       if add 
         commit = system "git commit -m '#{message}'"
         if commit 
-          system "git push origin master"
+          system "git push --quiet origin master"
         end 
       end    
     end
