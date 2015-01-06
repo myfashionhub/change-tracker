@@ -20,6 +20,10 @@ class ChangeTracker
 
     File.open("#{file}", 'w') do |f|
       f.write(content)
+      f.readlines do |line|
+        line = nil if line.include?('decor/track/dot') || 
+        line.include?('media_player_insertion_')
+      end
       f.close
     end
 
