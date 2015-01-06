@@ -18,18 +18,18 @@ class ChangeTracker
 
   def find_changes
     content = HTTParty.get(self.url)
-    file = self.file
-    draft = self.draft 
+    file    = self.file
+    draft   = self.draft 
     message = "Changes detected #{DateTime.now}"
-    
-    cd = "cd /home/nessa/waywire-bot/makeyourmovetv"
+    path    = "/home/nessa/waywire-bot/makeyourmovetv/"
+
     File.open("#{draft}", 'w') do |f|
       f.write(content)
       f.close
     end
 
-    File.open("#{file}", 'w') do |f|
-      File.readlines("#{draft}").each do |line|
+    File.open("#{path}#{file}", 'w') do |f|
+      File.readlines("#{path}#{draft}").each do |line|
         unless line.include?('decor/track/dot') || 
           line.include?('media_player_insertion_')
           f.write(line)
@@ -38,13 +38,13 @@ class ChangeTracker
       f.close
     end
 
-    diff = `#{cd} && git diff #{file}`
+    diff = `cd #{path} && git diff #{file}`
     unless diff.empty?
-      add = system "#{cd} && git add #{file}"
+      add = system "cd #{path} && git add #{file}"
       if add 
-        commit = system "#{cd} git commit -m '#{message}'"
+        commit = system "#{cd} && git commit -m '#{message}'"
         if commit 
-          system "#{cd} git push --quiet origin master"
+          system "cd #{path} && git push --quiet origin master"
         end 
       end    
     end
