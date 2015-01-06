@@ -25,31 +25,26 @@ class ChangeTracker
       f.close
     end
 
-    lines = []
-    File.readlines("#{draft}").each do |line|
-      unless line.include?('decor/track/dot') || 
-        line.include?('media_player_insertion_')
-        lines.push(line)
-      end  
-    end
-
     File.open("#{file}", 'w') do |f|
-      lines.each do |line|
-        f.write(line)
-      end
+      File.readlines("#{draft}").each do |line|
+        unless line.include?('decor/track/dot') || 
+          line.include?('media_player_insertion_')
+          f.write(line)
+        end  
+      end  
       f.close
     end
-    
+
     diff = `git diff #{file}`
-    # unless diff.empty?
-    #   add = system "git add #{file}"
-    #   if add 
-    #     commit = system "git commit -m '#{message}'"
-    #     if commit 
-    #       system "git push origin master"
-    #     end 
-    #   end    
-    # end
+    unless diff.empty?
+      add = system "git add #{file}"
+      if add 
+        commit = system "git commit -m '#{message}'"
+        if commit 
+          system "git push origin master"
+        end 
+      end    
+    end
   end
 end
 
