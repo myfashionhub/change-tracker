@@ -11,9 +11,9 @@ class ChangeTracker
   attr_accessor :file, :draft
 
   def initialize
-    @draft = '/home/nessa/waywire-bot/makeyourmovetv/draft.html'
-    @file = '/home/nessa/waywire-bot/makeyourmovetv/index.html' 
-    @url = 'http://videos.makeyourmove.tv/'
+    @draft = 'draft.html'
+    @file  = 'index.html' 
+    @url   = 'http://videos.makeyourmove.tv/'
   end
 
   def find_changes
@@ -22,6 +22,7 @@ class ChangeTracker
     draft = self.draft 
     message = "Changes detected #{DateTime.now}"
     
+    system "cd /home/nessa/waywire-bot/makeyourmovetv"
     File.open("#{draft}", 'w') do |f|
       f.write(content)
       f.close
