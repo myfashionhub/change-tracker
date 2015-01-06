@@ -25,9 +25,13 @@ class ChangeTracker
 
     diff = `git diff #{file}`
     unless diff.empty?
-      system "git add #{file}"
-      system "git commit -m '#{message}'"
-      system "git push origin master"
+      add = system "git add #{file}"
+      if add 
+        commit = system "git commit -m '#{message}'"
+        if commit 
+          system "git push origin master"
+        end 
+      end    
     end
   end
 end
