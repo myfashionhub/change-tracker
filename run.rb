@@ -7,7 +7,7 @@ require 'httparty'
 require 'date'
 
 class ChangeTracker
-  attr_reader :url
+  attr_reader :url, :path
   attr_accessor :file, :draft
 
   def initialize
