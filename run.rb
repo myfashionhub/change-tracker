@@ -42,7 +42,7 @@ class ChangeTracker
     unless diff.empty?
       add = system "cd #{path} && git add #{file}"
       if add 
-        commit = system "#{cd} && git commit -m '#{message}'"
+        commit = system "cd #{path} && git commit -m '#{message}'"
         if commit 
           system "cd #{path} && git push --quiet origin master"
         end 
