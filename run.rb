@@ -14,16 +14,17 @@ class ChangeTracker
     @draft = 'draft.html'
     @file  = 'index.html' 
     @url   = 'http://videos.makeyourmove.tv/'
+    @path  = "/home/nessa/waywire-bot/makeyourmovetv/"
   end
 
   def find_changes
-    content = HTTParty.get(self.url)
     file    = self.file
     draft   = self.draft 
+    path    = self.path
     message = "Changes detected #{DateTime.now}"
-    path    = "/home/nessa/waywire-bot/makeyourmovetv/"
-
-    File.open("#{draft}", 'w') do |f|
+    
+    content = HTTParty.get(self.url)
+    File.open("#{path}#{draft}", 'w') do |f|
       f.write(content)
       f.close
     end
