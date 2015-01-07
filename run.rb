@@ -32,7 +32,9 @@ class ChangeTracker
     File.open("#{path}#{file}", 'w') do |f|
       File.readlines("#{path}#{draft}").each do |line|
         unless line.include?('decor/track/dot') || 
-          line.include?('media_player_insertion_')
+          line.include?('media_player_insertion_') || 
+          line.include?('style/shared.css?') || 
+          line.include?('local_style.css?')
           f.write(line)
         end  
       end  
