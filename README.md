@@ -7,7 +7,7 @@
 `#!/usr/bin/env ruby`
 
 * Edit crontab with `crontab -e`:
-```
+```bash
 MAILTO="nessa@waywire.com"
 # every 10 minutes
 */10 * * * * path/to/file/run.rb
