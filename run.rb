@@ -11,9 +11,9 @@ class ChangeTracker
   attr_accessor :file, :draft
 
   def initialize
-    @draft = 'draft.html'
-    @file  = 'index.html' 
-    @url   = 'http://videos.makeyourmove.tv/'
+    @draft = 'draft.css'
+    @file  = 'local_style.css' 
+    @url   = 'http://media.magnify.net/media/site/G2P0Z22GWYF818G8/local_style.css'
     @path  = "/home/nessa/waywire-bot/makeyourmovetv/"
   end
 
