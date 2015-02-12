@@ -1,6 +1,7 @@
 ## Tracking changes on Makeyourmove.tv
 
-### Run the script
+### Getting started
+* This assumes your machine has Ruby environment. Clone the repo, cd into it and run `bundle install` to install dependencies (`gem install bundle`)
 
 #### If system Ruby is installed:
 * Replace the top line of run.rb with:
@@ -8,7 +9,7 @@
 
 * Edit crontab with `crontab -e`:
 ```bash
-MAILTO="nessa@waywire.com"
+MAILTO="[your email]"
 # every 10 minutes
 */10 * * * * path/to/file/run.rb
 ```
@@ -18,7 +19,7 @@ MAILTO="nessa@waywire.com"
 
 * In crontab:
 ```bash
-MAILTO="nessa@waywire.com"
+MAILTO="[your email]"
 */10 * * * * [Ruby binary] all ruby do path/to/file/run.rb
 ```
 

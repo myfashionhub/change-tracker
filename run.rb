@@ -11,45 +11,53 @@ class ChangeTracker
   attr_accessor :file, :draft
 
   def initialize
-    @draft = 'draft.css'
-    @file  = 'local_style.css' 
-    @url   = 'http://media.magnify.net/media/site/G2P0Z22GWYF818G8/local_style.css'
-    @path  = "/home/nessa/waywire-bot/makeyourmovetv/"
+    # Url to the file that needs tracking
+    # It can be any file type: css, js, xml
+    @url   = 'http://yourwebsite.com/path/main.html'
+
+    # Name these two files with corresponding extension
+    @draft = 'draft.html'
+    @file  = 'main.html'
+
+    # Since cron runs at the root
+    # We need to specify a path to the monitor folder
+    @path  = '/path/to/local/folder/'
   end
 
   def find_changes
     file    = self.file
-    draft   = self.draft 
+    draft   = self.draft
     path    = self.path
     message = "Changes detected #{DateTime.now}"
-    
+
+    # The script writes the file into the draft
     content = HTTParty.get(self.url)
     File.open("#{path}#{draft}", 'w') do |f|
       f.write(content)
       f.close
     end
 
+    # Use this block to ignore any word or line
+    # that constantly changes and doesn't need to be tracked
+    ignored_lines = ['word1' 'line2', 'phrase3']
     File.open("#{path}#{file}", 'w') do |f|
       File.readlines("#{path}#{draft}").each do |line|
-        unless line.include?('decor/track/dot') || 
-          line.include?('media_player_insertion_') || 
-          line.include?('style/shared.css?') || 
-          line.include?('local_style.css?')
-          f.write(line)
-        end  
-      end  
+        ignored_lines.each do |ignore|
+          f.write(line) unless line.include?(ignore)
+        end
+      end
       f.close
     end
 
     diff = `cd #{path} && git diff #{file}`
     unless diff.empty?
       add = system "cd #{path} && git add #{file}"
-      if add 
+      if add
         commit = system "cd #{path} && git commit -m '#{message}'"
-        if commit 
+        if commit
           system "cd #{path} && git push --quiet origin master"
-        end 
-      end    
+        end
+      end
     end
   end
 end
