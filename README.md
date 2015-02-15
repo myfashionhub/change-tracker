@@ -1,7 +1,9 @@
-## Tracking changes on Makeyourmove.tv
+## Ruby script for tracking changes
 
 ### Getting started
-* This assumes your machine has Ruby environment. Clone the repo, cd into it and run `bundle install` to install dependencies (`gem install bundle`)
+* This assumes your machine has Ruby environment. Clone the repo, cd into it and run `bundle install` to install dependencies (`gem install bundle` if gem bundle is not already installed).
+
+* How it works: The script downloads the page/file you specify and git commits any change it detects. It can be set up to run at intervals with crontab. `git push --quiet` option means you will only get notified by email if an error is encountered.
 
 #### If system Ruby is installed:
 * Replace the top line of run.rb with:
